@@ -13,7 +13,7 @@ The goal of this project is to analyze Netflix content to uncover:
 - **Content trends** over the years  
 - **Ratings distribution** and other insights  
 
-This project is perfect for beginners in **Data Analysis**, **Visualization**, and **Streamlit App Development**.  
+ **Data Analysis**, **Visualization**, and **Streamlit App Development**.  
 
 ---
 
