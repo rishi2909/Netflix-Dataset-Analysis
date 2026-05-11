@@ -1,16 +1,16 @@
-# ==========================================================
-# 📺 Netflix Movies and TV Shows Dashboard (Final Version)
-# ==========================================================
+
+Netflix Movies and TV Shows Dashboard 
+
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# ----------------------------------------------------------
+
 # App Setup
-# ----------------------------------------------------------
-st.set_page_config(page_title="Netflix Dashboard", page_icon="📺", layout="wide")
-st.title("🎬 Netflix Movies and TV Shows Dashboard")
+
+st.set_page_config(page_title="Netflix Dashboard", page_icon="", layout="wide")
+st.title("Netflix Movies and TV Shows Dashboard")
 st.markdown("Explore Netflix's catalog using interactive visualizations — by type, year, genre, rating, and more.")
 
 # ----------------------------------------------------------
@@ -20,7 +20,7 @@ st.markdown("Explore Netflix's catalog using interactive visualizations — by t
 def load_data():
     df = pd.read_csv("netflix_titles.csv")
 
-    # ✅ Clean the country column
+    # Clean the country column
     df['country'] = (
         df['country']
         .fillna('Unknown')
@@ -39,7 +39,7 @@ df = load_data()
 # ----------------------------------------------------------
 # Sidebar Filters
 # ----------------------------------------------------------
-st.sidebar.header("🎚️ Filter Options")
+st.sidebar.header("Filter Options")
 
 type_filter = st.sidebar.multiselect(
     "Select Type:",
@@ -72,7 +72,7 @@ st.write(f"### Showing {len(filtered_df)} titles after filtering")
 # ----------------------------------------------------------
 # Visualization 1: Movies vs TV Shows
 # ----------------------------------------------------------
-st.subheader("🎬 Movies vs TV Shows")
+st.subheader("Movies vs TV Shows")
 
 type_count = filtered_df['type'].value_counts().reset_index()
 type_count.columns = ['Type', 'Count']
@@ -93,7 +93,7 @@ else:
 # ----------------------------------------------------------
 # Visualization 2: Content Released Over the Years
 # ----------------------------------------------------------
-st.subheader("📆 Content Released Over the Years")
+st.subheader("Content Released Over the Years")
 
 year_df = filtered_df['release_year'].value_counts().sort_index().reset_index()
 year_df.columns = ['Year', 'Count']
@@ -108,12 +108,12 @@ if not year_df.empty:
     )
     st.plotly_chart(fig2, use_container_width=True, key="year_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Visualization 3: Top 10 Countries
 # ----------------------------------------------------------
-st.subheader("🌎 Top 10 Countries with Most Content")
+st.subheader("Top 10 Countries with Most Content")
 
 country_df = filtered_df['country'].value_counts().head(10).reset_index()
 country_df.columns = ['Country', 'Count']
@@ -129,12 +129,12 @@ if not country_df.empty:
     )
     st.plotly_chart(fig3, use_container_width=True, key="country_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Visualization 4: Ratings Distribution
 # ----------------------------------------------------------
-st.subheader("⭐ Ratings Distribution")
+st.subheader("Ratings Distribution")
 
 rating_df = filtered_df['rating'].value_counts().reset_index()
 rating_df.columns = ['Rating', 'Count']
@@ -148,12 +148,12 @@ if not rating_df.empty:
     )
     st.plotly_chart(fig4, use_container_width=True, key="rating_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Visualization 5: Top 10 Genres / Categories
 # ----------------------------------------------------------
-st.subheader("🎭 Top 10 Genres / Categories")
+st.subheader("Top 10 Genres / Categories")
 
 genres = filtered_df['listed_in'].dropna().str.split(',').explode().str.strip()
 top_genres = genres.value_counts().head(10).reset_index()
@@ -170,12 +170,12 @@ if not top_genres.empty:
     )
     st.plotly_chart(fig5, use_container_width=True, key="genre_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Visualization 6: Top 10 Directors
 # ----------------------------------------------------------
-st.subheader("🎬 Top 10 Directors by Number of Titles")
+st.subheader("Top 10 Directors by Number of Titles")
 
 directors = filtered_df['director'].dropna().value_counts().head(10).reset_index()
 directors.columns = ['Director', 'Count']
@@ -191,12 +191,12 @@ if not directors.empty:
     )
     st.plotly_chart(fig6, use_container_width=True, key="director_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Visualization 7: Duration Distribution
 # ----------------------------------------------------------
-st.subheader("⏱️ Duration Distribution (Movies / TV Shows)")
+st.subheader("Duration Distribution (Movies / TV Shows)")
 
 duration_df = filtered_df['duration'].dropna().value_counts().head(10).reset_index()
 duration_df.columns = ['Duration', 'Count']
@@ -212,10 +212,10 @@ if not duration_df.empty:
     )
     st.plotly_chart(fig7, use_container_width=True, key="duration_chart")
 else:
-    st.warning("⚠️ No data available for the selected filters.")
+    st.warning("No data available for the selected filters.")
 
 # ----------------------------------------------------------
 # Footer
 # ----------------------------------------------------------
 st.markdown("---")
-st.caption("📊 Built with ❤️ using Streamlit & Plotly | Dataset: Netflix Movies and TV Shows (Kaggle)")
+st.caption(" Built with using Streamlit & Plotly | Dataset: Netflix Movies and TV Shows (Kaggle)")
