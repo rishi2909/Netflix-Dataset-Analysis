@@ -1,5 +1,5 @@
 
-Netflix Movies and TV Shows Dashboard 
+#Netflix Movies and TV Shows Dashboard 
 
 
 import streamlit as st
@@ -13,9 +13,9 @@ st.set_page_config(page_title="Netflix Dashboard", page_icon="", layout="wide")
 st.title("Netflix Movies and TV Shows Dashboard")
 st.markdown("Explore Netflix's catalog using interactive visualizations — by type, year, genre, rating, and more.")
 
-# ----------------------------------------------------------
+
 # Load Dataset
-# ----------------------------------------------------------
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("netflix_titles.csv")
@@ -110,9 +110,9 @@ if not year_df.empty:
 else:
     st.warning("No data available for the selected filters.")
 
-# ----------------------------------------------------------
+
 # Visualization 3: Top 10 Countries
-# ----------------------------------------------------------
+
 st.subheader("Top 10 Countries with Most Content")
 
 country_df = filtered_df['country'].value_counts().head(10).reset_index()
@@ -131,9 +131,8 @@ if not country_df.empty:
 else:
     st.warning("No data available for the selected filters.")
 
-# ----------------------------------------------------------
 # Visualization 4: Ratings Distribution
-# ----------------------------------------------------------
+
 st.subheader("Ratings Distribution")
 
 rating_df = filtered_df['rating'].value_counts().reset_index()
@@ -150,9 +149,8 @@ if not rating_df.empty:
 else:
     st.warning("No data available for the selected filters.")
 
-# ----------------------------------------------------------
 # Visualization 5: Top 10 Genres / Categories
-# ----------------------------------------------------------
+
 st.subheader("Top 10 Genres / Categories")
 
 genres = filtered_df['listed_in'].dropna().str.split(',').explode().str.strip()
@@ -193,9 +191,8 @@ if not directors.empty:
 else:
     st.warning("No data available for the selected filters.")
 
-# ----------------------------------------------------------
 # Visualization 7: Duration Distribution
-# ----------------------------------------------------------
+
 st.subheader("Duration Distribution (Movies / TV Shows)")
 
 duration_df = filtered_df['duration'].dropna().value_counts().head(10).reset_index()
@@ -214,8 +211,8 @@ if not duration_df.empty:
 else:
     st.warning("No data available for the selected filters.")
 
-# ----------------------------------------------------------
+
 # Footer
-# ----------------------------------------------------------
+
 st.markdown("---")
 st.caption(" Built with using Streamlit & Plotly | Dataset: Netflix Movies and TV Shows (Kaggle)")
